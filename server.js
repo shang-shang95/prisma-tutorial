@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 app.use(express.json());
 
-app.get("/post/:id", async (req, res) => {
+app.get("/posts/:id", async (req, res) => {
   const id = Number(req.params.id);
   const post = await prisma.post.findUnique({
     where: {
@@ -23,7 +23,7 @@ app.get("/posts", async (req, res) => {
   return res.json(posts);
 });
 
-app.post("/post", async (req, res) => {
+app.post("/posts", async (req, res) => {
   const { title, body } = req.body;
   const post = await prisma.post.create({
     data: {
@@ -34,7 +34,7 @@ app.post("/post", async (req, res) => {
   return res.json(post);
 });
 
-app.patch("/post/:id", async (req, res) => {
+app.patch("/posts/:id", async (req, res) => {
   const id = Number(req.params.id);
   const { title, body } = req.body;
   const updatedPost = await prisma.post.update({
@@ -49,7 +49,7 @@ app.patch("/post/:id", async (req, res) => {
   return res.json(updatedPost);
 });
 
-app.delete("/post/:id", async (req, res) => {
+app.delete("/posts/:id", async (req, res) => {
   const id = Number(req.params.id);
   const deletedPost = await prisma.post.delete({
     where: {
