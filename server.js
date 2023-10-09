@@ -59,6 +59,27 @@ app.delete("/posts/:id", async (req, res) => {
   return res.json(deletedPost);
 });
 
+app.post("/posts/:id/comments", async (req, res) => {
+  const postId = Number(req.params.id);
+  const { body } = req.body;
+  const comment = await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      comments: {
+        create: {
+          body,
+        },
+      },
+    },
+    include: {
+      comments: true,
+    },
+  });
+  return res.json(comment);
+});
+
 app.listen(PORT, () => {
   console.log("サーバーが起動中・・・");
 });
