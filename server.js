@@ -34,6 +34,21 @@ app.post("/post", async (req, res) => {
   return res.json(post);
 });
 
+app.patch("/post/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  const { title, body } = req.body;
+  const updatedPost = await prisma.post.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      body,
+    },
+  });
+  return res.json(updatedPost);
+});
+
 app.listen(PORT, () => {
   console.log("サーバーが起動中・・・");
 });
