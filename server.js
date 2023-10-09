@@ -6,6 +6,7 @@ const PORT = 8000;
 
 const prisma = new PrismaClient();
 
+app.use(express.json());
 app.post("/post", async (req, res) => {
   const { title, body } = req.body;
   const post = await prisma.post.create({
