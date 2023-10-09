@@ -16,6 +16,16 @@ model Post {
   body String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @default(now()) @map("updated_at")
+  comments Comment[]
 
   @@map("posts")
+}
+
+model Comment {
+  id Int @default(autoincrement()) @id
+  body String
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+
+  @@map("comments")
 }
